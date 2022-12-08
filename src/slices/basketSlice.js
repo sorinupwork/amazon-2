@@ -4,18 +4,37 @@ const initialState = {
   items: [],
 };
 
-export const basketSlice = createSlice({
-  name: "basket",
+export const cartSlice = createSlice({
+  name: "cart",
   initialState,
   reducers: {
-    addToBasket: (state, action) => {},
-    removeFromBasket: (state, action) => {},
+    addToCart: (state, action) => {
+      state.items = [...state.items, action.payload];
+    },
+    removeFromCart: (state, action) => {
+      const index = state.items.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+
+      let newCart = [...state.items];
+
+      if (index >= 0) {
+        //the item exists in the cart... remove it...
+        newCart.splice(index, 1);
+      } else {
+        console.warn(
+          `Cant remove product (id: ${action.payload.id}) as its not in the cart`
+        );
+      }
+
+      state.items = newCart;
+    },
   },
 });
 
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 
 // Selectors - This is how we pull information from the Global store slice
-export const selectItems = (state) => state.basket.items;
+export const selectItems = (state) => state.cart.items;
 
-export default basketSlice.reducer;
+export default cartSlice.reducer;
