@@ -4,9 +4,9 @@ import { SessionProvider } from "next-auth/react";
 
 import "../styles/globals.css";
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
       <Provider store={store}>
         <Component {...pageProps} />
       </Provider>
