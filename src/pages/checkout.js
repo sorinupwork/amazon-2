@@ -6,10 +6,11 @@ import { useSession } from "next-auth/react";
 
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
-import { selectItems } from "../slices/basketSlice";
+import { selectItems, selectTotal } from "../slices/basketSlice";
 
 function Checkout() {
   const items = useSelector(selectItems);
+  const total = useSelector(selectTotal);
   const { data: session } = useSession();
 
   return (
@@ -54,14 +55,14 @@ function Checkout() {
           {items.length > 0 && (
             <>
               <h2 className="whitespace-nowrap">
-                Subtotal ({items.length} items):
+                Subtotal ({items.length} items):{" "}
                 <span className="font-bold">
-                  {/* <CurrencyFormat
+                  <CurrencyFormat
                     value={total}
                     thousandSeparator={true}
                     prefix={"$"}
                     displayType={"text"}
-                  /> */}
+                  />
                 </span>
               </h2>
 
