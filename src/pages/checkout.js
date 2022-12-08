@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
 import CurrencyFormat from "react-currency-format";
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/client";
 
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
@@ -11,7 +11,7 @@ import { selectItems, selectTotal } from "../slices/basketSlice";
 function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
-  const { data: session } = useSession();
+  const [session] = useSession();
 
   return (
     <div className="bg-gray-100">

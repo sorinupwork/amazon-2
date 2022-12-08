@@ -5,13 +5,14 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+
 import { selectItems } from "../slices/basketSlice";
 
 function Header() {
-  const { data: session } = useSession();
+  const [session] = useSession();
   const router = useRouter();
   const items = useSelector(selectItems);
 
@@ -41,7 +42,10 @@ function Header() {
 
         {/* Right */}
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-          <div onClick={!session ? signIn : signOut} className="link">
+          <div
+            onClick={!session ? () => signIn() : () => signOut()}
+            className="link"
+          >
             <p className="hover:underline">
               {session ? `Hello, ${session.user.name}` : "Sign In"}
             </p>

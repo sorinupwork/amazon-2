@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { StarIcon } from "@heroicons/react/solid";
 import CurrencyFormat from "react-currency-format";
 import { useDispatch } from "react-redux";
+
 import { addToCart } from "../slices/basketSlice";
 
 const MAX_RATING = 5;

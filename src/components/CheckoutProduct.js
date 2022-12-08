@@ -3,6 +3,7 @@ import CurrencyFormat from "react-currency-format";
 import Image from "next/image";
 import React from "react";
 import { useDispatch } from "react-redux";
+
 import { addToCart, removeFromCart } from "../slices/basketSlice";
 
 function CheckoutProduct({
