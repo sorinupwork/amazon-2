@@ -5,6 +5,7 @@ import CurrencyFormat from "react-currency-format";
 import { useSession } from "next-auth/client";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { getSession } from "next-auth/client";
 
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
@@ -107,3 +108,13 @@ function Checkout() {
 }
 
 export default Checkout;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
+}

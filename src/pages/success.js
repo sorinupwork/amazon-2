@@ -1,9 +1,13 @@
 import React from "react";
 import { CheckCircleIcon } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
+import { getSession } from "next-auth/client";
 
 import Header from "../components/Header";
 
 function Success() {
+  const router = useRouter();
+
   return (
     <div className="bg-gray-100 h-screen">
       <Header />
@@ -22,7 +26,12 @@ function Success() {
             item(s) has shipped, if you would like to check the status of your
             order(s) please press the link below
           </p>
-          <button className="button mt-8">Go to my orders</button>
+          <button
+            onClick={() => router.push("/orders")}
+            className="button mt-8"
+          >
+            Go to my orders
+          </button>
         </div>
       </main>
     </div>
@@ -30,3 +39,13 @@ function Success() {
 }
 
 export default Success;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
